@@ -160,5 +160,44 @@ $RECYCLE.BIN/
 .Trash-*
 .nfs*
 
-# Project
+# Project files
 plots/
+/graphgen/resources/nauty/addedgeg
+/graphgen/resources/nauty/amtog
+/graphgen/resources/nauty/biplabg
+/graphgen/resources/nauty/catg
+/graphgen/resources/nauty/complg
+/graphgen/resources/nauty/converseg
+/graphgen/resources/nauty/copyg
+/graphgen/resources/nauty/countg
+/graphgen/resources/nauty/cubhamg
+/graphgen/resources/nauty/deledgeg
+/graphgen/resources/nauty/delptg
+/graphgen/resources/nauty/directg
+/graphgen/resources/nauty/dreadnaut
+/graphgen/resources/nauty/dretodot
+/graphgen/resources/nauty/dretog
+/graphgen/resources/nauty/genbg
+/graphgen/resources/nauty/genbgL
+/graphgen/resources/nauty/geng
+/graphgen/resources/nauty/genquarticg
+/graphgen/resources/nauty/genrang
+/graphgen/resources/nauty/genspecialg
+/graphgen/resources/nauty/gentourng
+/graphgen/resources/nauty/gentreeg
+/graphgen/resources/nauty/hamheuristic
+/graphgen/resources/nauty/labelg
+/graphgen/resources/nauty/linegraphg
+/graphgen/resources/nauty/listg
+/graphgen/resources/nauty/multig
+/graphgen/resources/nauty/newedgeg
+/graphgen/resources/nauty/NRswitchg
+/graphgen/resources/nauty/pickg
+/graphgen/resources/nauty/planarg
+/graphgen/resources/nauty/ranlabg
+/graphgen/resources/nauty/shortg
+/graphgen/resources/nauty/showg
+/graphgen/resources/nauty/subdivideg
+/graphgen/resources/nauty/twohamg
+/graphgen/resources/nauty/vcolg
+/graphgen/resources/nauty/watercluster2
