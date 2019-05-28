@@ -9,6 +9,9 @@ import numpy as np
 # The path of the installation folder of Nauty.
 NAUTY_PATH = os.path.join(RESOURCE_PATH, 'nauty')
 
+# If True, the caches will be allowed.
+USE_CACHE = True
+
 def canonically_label(graphs, file_id=''):
 	"""
 	Canonically label a list of NetowrkX graphs.
@@ -41,7 +44,7 @@ def canonically_label(graphs, file_id=''):
 
 	return canonized_graphs
 
-def generate_all_graphs(num_vertices, use_cache=True):
+def generate_all_graphs(num_vertices, use_cache=USE_CACHE):
 	"""
 	Generate all the different graphs following the number of vertices. All returned graphs are canonically labeled.
 
@@ -65,7 +68,7 @@ def generate_all_graphs(num_vertices, use_cache=True):
 
 	return all_graphs
 
-def num_graphs(num_vertices, use_cache=True):
+def num_graphs(num_vertices, use_cache=USE_CACHE):
 	"""
 	Compute the number of all the different graphs following the number of vertices.
 
