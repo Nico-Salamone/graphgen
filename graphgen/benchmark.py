@@ -1,4 +1,4 @@
-import graphgen.graph_counts as gc
+import graphgen.generated_graph_distr as ggd
 from graphgen import nauty
 
 from multiprocessing import cpu_count
@@ -8,21 +8,23 @@ def benchmark_generator(graph_gen, gen_args, assessors, vertex_num_list, gen_kwa
 	num_processes=cpu_count(), verbose=True):
 	"""
 	From an assessor, benchmark a graph generator for several numbers of vertices.
-	More specifically, for each number of vertices, the counts of graphs is computed and all assesors assesses the
-	generator from the counts.
+	More specifically, for each number of vertices, the distribution of generated graphs is computed and all assesors
+	assesses the generator from this distribution.
 
 	:graph_gen: The generator of graphs (a Python function) whose the first argument is the number of vertices.
 	:gen_args: The list of requiered arguments to send to the graph generator (not to mention the number of vertices).
 	:assessors: An assessor or a list of assessors of graph generator (a Python function). Each one assesses it using
-		the counts of graphs. You can use 'assessor.compute_mdod' or 'assessor.compute_sdod' for example.
+		the distribution of generated graphs. You can use 'assessor.compute_mdod' or 'assessor.compute_sdod' for
+		example.
 	:vertex_num_list: The list of numbers of vertices. If one of these is greater than 9, it can be slow to compute.
 	:gen_kwargs: The dictionary of optional arguments to send to the graph generator. For each entry (key, value)
 		of this dictionary, the key is the parameter name and the value is the value to set to this parameter.
 	:factor_num_graphs: It defines the number of graphs to generate from the number of all different graphs. For
 		example, suppose that in the current iteration the number of vertices is 'n' and suppose taht there are 'k'
 		different graphs with 'n' vertices. Then, for this iteration, 'factor_num_graphs' * 'k' graphs will be generate
-		in order to compute the counts of graphs (see graph_counts.compute_graph_counts). The higher 'factor_num_graphs'
-		will be and the more accurate the assessment will be (and the slower this function will run).
+		in order to compute the distribution of generated graphs (see
+		generated_graph_distr.compute_generated_graph_distr). The higher 'factor_num_graphs' will be and the more
+		accurate the assessment will be (and the slower this function will run).
 	:num_processes: The number of processes to create. By default, it is set to 'n', where 'n' is the number of CPUs in
 		the system.
 	:verbose: If True, some logs will be print, otherwise nothing will be print.
@@ -48,20 +50,15 @@ def benchmark_generator(graph_gen, gen_args, assessors, vertex_num_list, gen_kwa
 		# Compute the number of graphs to generate.
 		num_graphs_to_gen = factor_num_graphs * num_all_graphs
 
-		# Compute the graph counts.
-		graph_counts = gc.compute_graph_counts(num_graphs_to_gen, graph_gen, [num_vertices, *gen_args],
-			gen_kwargs=gen_kwargs, is_deterministic=True, num_processes=num_processes)
+		# Compute the distribution of generated graphs.
+		gen_graph_distr = ggd.generated_graph_distr(num_vertices, num_graphs_to_gen, graph_gen,
+			[num_vertices, *gen_args], gen_kwargs=gen_kwargs, is_deterministic=True, num_processes=num_processes)
 
-		# For each graph that is not in 'graph_counts', add it with a value of 0.
-		all_graphs = nauty.generate_all_graphs(num_vertices)
-		for graph in all_graphs:
-			graph_counts[graph] = graph_counts.get(graph, 0)
-
-		# Assess the generator from the counts of graphs.
+		# Assess the generator from the distribution of generated graphs.
 		if verbose:
 			print("\tAssessments:")
 		for assessor in assessors:
-			assessment = assessor(graph_counts)
+			assessment = assessor(gen_graph_distr)
 			assessments[assessor].append(assessment)
 
 			if verbose:

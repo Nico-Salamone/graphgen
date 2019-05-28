@@ -13,6 +13,39 @@ import numpy as np
 # 'num_processes', that is the number of processes created.
 _CHUNCK_SIZE = 1000000
 
+def generated_graph_distr(num_vertices, num_graphs, graph_gen, gen_args, gen_kwargs={}, is_deterministic=False,
+	num_processes=cpu_count()):
+	"""
+	Compute the distribution of generated graphs by a graph generator. This function first generates some graphs with
+	'num_vertices' vertices. Then, it canonically label each one. Next, it computes the counts af all canonically
+	labeled graphs. Finally, it generate all different graphs and, for each graph, if it is in the counts, then
+	(graph, 0) is added tothe counts.
+
+	:num_vertices: The number of vertices of graphs to generate.
+	:num_graphs: The number of graphs to generate.
+	:graph_gen: The generator of graphs (a Python function).
+	:gen_args: The list of requiered arguments to send to the graph generator.
+	:gen_kwargs: The dictionary of optional arguments to send to the graph generator. For each entry (key, value)
+		of this dictionary, the key is the parameter name and the value is the value to set to this parameter.
+	:is_deterministic: If True, makes this function deterministic. Otherwise, it will not be deterministic.
+	:num_processes: The number of processes to create. By default, it is set to 'n', where 'n' is the number of CPUs in
+		the system.
+	:return: The distribution of generated graphs by the generator. It is a Counter object (as a dictionary) where, for
+		each entry (key, value), the key is a graph (in graph6 format) and and the value is its count.
+	"""
+
+	# Compute the counts of graphs.
+	graph_counts = compute_graph_counts(num_graphs, graph_gen, gen_args, gen_kwargs=gen_kwargs,
+		is_deterministic=is_deterministic, num_processes=num_processes)
+
+	# For each graph that is not in 'graph_counts', add it with a value of 0.
+	gen_graph_distr = graph_counts
+	all_graphs = nauty.generate_all_graphs(num_vertices)
+	for graph in all_graphs:
+		gen_graph_distr[graph] = gen_graph_distr.get(graph, 0)
+
+	return gen_graph_distr
+
 def compute_graph_counts(num_graphs, graph_gen, gen_args, gen_kwargs={}, is_deterministic=False,
 	num_processes=cpu_count()):
 	"""
@@ -68,8 +101,6 @@ def _compute_graph_counts(process_id, num_graphs, graph_gen, gen_args, gen_kwarg
 		a graph (in graph6 format) and and the value is its count.
 	"""
 
-	# The chunks are used in order to limit the size of temporary files.
-
 	# If deterministic is True, set a seed for this process (equal to its identifier).
 	if is_deterministic:
 		seed = process_id
@@ -98,22 +129,22 @@ def _compute_graph_counts(process_id, num_graphs, graph_gen, gen_args, gen_kwarg
 	
 	return graph_counts
 
-def draw_graph_counts(graph_counts, num_vertices=None):
+def draw_generated_graph_distr(gen_graph_distr, num_vertices=None):
 	"""
 	Draw the counts of graphs with Matplolib.
 
-	:graph_counts: The counts of graphs (the distribution of these). It is a dictionary where, for each entry (key,
-		value), the key is a graph (in graph6 format) and the value is the count of this graph.
+	:gen_graph_distr: The distribution of generated graphs (or the counts of graphs). It is a dictionary where, for
+		each entry (key, value), the key is a graph (in graph6 format) and the value is the count of this graph.
 	:num_vertices: The number of vertices used to generate the counts. It is only used for the title of the plot.
 	"""
 
 	# Create the title.
-	title = 'Counts of different graphs'
+	title = 'Distribution of generated graphs'
 	if num_vertices:
 		title = ' '.join([title, 'with {} vertices'.format(num_vertices)])
 
-	# Order the graph counts to better visualize the plot.
-	graph_counts = OrderedDict(sorted(graph_counts.items()))
+	# Order the distribution of generated graphs to better visualize the plot.
+	gen_graph_distr = OrderedDict(sorted(gen_graph_distr.items()))
 
 	# Draw the histogram.
-	_helpers.draw_hist(graph_counts, title=title, xlabel='Graph', ylabel='Count', legend_label='Counts')
+	_helpers.draw_hist(gen_graph_distr, title=title, xlabel='Graph', ylabel='Count', legend_label='Counts')

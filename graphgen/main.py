@@ -1,7 +1,7 @@
 if __name__ == '__main__':
 	import graphgen.assessor as ass
 	import graphgen.graph_generators as gg
-	import graphgen.graph_counts as gc
+	import graphgen.generated_graph_distr as ggd
 	from graphgen import nauty
 
 	import random
@@ -26,23 +26,18 @@ if __name__ == '__main__':
 	gen_args = [num_vertices, 0.5]
 	gen_kwargs = {}
 
-	# Compute the graph counts.
-	graph_counts = gc.compute_graph_counts(num_graphs_to_gen, graph_gen, gen_args, gen_kwargs=gen_kwargs,
-		is_deterministic=True)
-
-	# For each graph that is not in 'graph_counts', add it with a value of 0.
-	all_graphs = nauty.generate_all_graphs(num_vertices)
-	for graph in all_graphs:
-		graph_counts[graph] = graph_counts.get(graph, 0)
+	# Compute the distribution of generated graphs.
+	gen_graph_distr = ggd.generated_graph_distr(num_vertices, num_graphs_to_gen, graph_gen, gen_args,
+		gen_kwargs=gen_kwargs, is_deterministic=True)
 	
 	# Print the result of metrics.
-	mdod = ass.compute_mdod(graph_counts)
-	sdod = ass.compute_sdod(graph_counts)
+	mdod = ass.compute_mdod(gen_graph_distr)
+	sdod = ass.compute_sdod(gen_graph_distr)
 	print("MDOD: {}".format(round(mdod, 3)))
 	print("SDOD: {}".format(round(sdod, 3)))
 
-	# Plot a histogram of graph counts.
+	# Plot a histogram of distribution of generated graphs.
 	fig = plt.figure(figsize=(8, 8))
-	gc.draw_graph_counts(graph_counts, num_vertices=num_vertices)
-	plt.savefig(os.path.join(PLOT_PATH, 'graph_counts.eps'), format='eps', dpi=300)
+	ggd.draw_generated_graph_distr(gen_graph_distr, num_vertices=num_vertices)
+	plt.savefig(os.path.join(PLOT_PATH, 'gen_graph_distr.eps'), format='eps', dpi=300)
 	plt.show()
