@@ -159,3 +159,6 @@ $RECYCLE.BIN/
 .directory
 .Trash-*
 .nfs*
+
+# Project
+plots/
