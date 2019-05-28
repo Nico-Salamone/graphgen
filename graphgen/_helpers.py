@@ -1,7 +1,6 @@
 import networkx as nx
 import numpy as np
 import math
-import matplotlib.pyplot as plt
 
 def to_adjacency_matrix(graph):
 	"""
@@ -115,6 +114,8 @@ def draw_hist(counts, title='', xlabel='', ylabel='', legend_label=''):
 	:ylabel: The label text for the ordinate axis.
 	:legend_label: The label of the histogram for the legend.
 	"""
+
+	import matplotlib.pyplot as plt
 
 	opacity = 1
 	color = '#FED487'
