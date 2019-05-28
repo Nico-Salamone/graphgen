@@ -1,6 +1,6 @@
 # Graphgen
 
-A library for random graph generation
+A library for random graph generation.
 
 ## Installation
 

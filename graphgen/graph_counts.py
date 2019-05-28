@@ -68,6 +68,8 @@ def _compute_graph_counts(process_id, num_graphs, graph_gen, gen_args, gen_kwarg
 		a graph (in graph6 format) and and the value is its count.
 	"""
 
+	# The chunks are used in order to limit the size of temporary files.
+
 	# If deterministic is True, set a seed for this process (equal to its identifier).
 	if is_deterministic:
 		seed = process_id
