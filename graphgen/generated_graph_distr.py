@@ -86,8 +86,8 @@ def compute_graph_counts(num_graphs, graph_gen, gen_args, gen_kwargs={}, is_dete
 
 def _compute_graph_counts(process_id, num_graphs, graph_gen, gen_args, gen_kwargs={}, is_deterministic=False):
 	"""
-	Compute the counts of graphs from a graph generator. This function first generates some graphs. Then, it canonically
-	label each one. Finally, it computes and returns the counts of all canonically labeled graphs.
+	Compute the counts of graphs from a graph generator. This function first generates some graphs. Then, it
+	canonically label each one. Finally, it computes and returns the counts of all canonically labeled graphs.
 
 	:process_id: The identifier of the process (used for the temporary files).
 	:num_graphs: The number of graphs to generate.

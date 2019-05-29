@@ -158,8 +158,8 @@ def _perform_chi_squared_test(edge_num_counts, probability_distr, thres_deleting
 	:probability_distr: A probability distribution of the number of edges. More formally, for a number of edges 'm',
 		'probability_distr(m)' is equal to P(m), where P(m) is the probability that the number of edges is 'm'.
 	:thres_deleting_elements: The threshold for deleted elements. When an expected element is smaller than this value,
-		then, it is removed and the corresponding observed element is also deleted. In fact, Chi-squared test fails with
-		small classes (elements), hence it is usefull to delete them.
+		then, it is removed and the corresponding observed element is also deleted. In fact, Chi-squared test fails
+		with small classes (elements), hence it is usefull to delete them.
 	:return: The chi-squared test statistic and the p-value of the statistical test.
 	"""
 
