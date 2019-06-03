@@ -17,7 +17,7 @@ For the automatic installation, follows the steps below.
 
 1. Open a terminal and `cd` to the Graphgen folder. For example:
     ```sh
-    cd Document/Graphgen/
+    cd ~/Document/Graphgen/
     ```
 1. Run the following command in your terminal.
     ```sh
@@ -30,7 +30,7 @@ For the manual installation, follows the steps below.
 
 1. Open a terminal and `cd` to the Graphgen folder. For example:
     ```sh
-    cd Document/Graphgen/
+    cd ~/Document/Graphgen/
     ```
 1. Run the following commands in your terminal.
     ```sh
