@@ -1,4 +1,4 @@
-from graph_generation.settings import NAUTY_PATH
+from graphgen.nauty import NAUTY_PATH
 
 from setuptools import setup
 import setuptools.command.develop
