@@ -15,11 +15,20 @@ Graphgen requires:
 
 For the automatic installation, follows the steps below.
 
-1. Open a terminal and `cd` to the Graphgen folder. For example:
+1. Open a terminal and clone the repository.
+  
     ```sh
-    cd ~/Document/graphgen-master/
+    git clone https://github.com/Nico-Salamone/graphgen.git
     ```
+
+1. Change directory (`cd`) to the Graphgen directory.
+  
+    ```sh
+    cd ./graphgen/
+    ```
+    
 1. Run the following command in your terminal.
+
     ```sh
     pip3 install -e .
     ```
@@ -28,10 +37,18 @@ For the automatic installation, follows the steps below.
 
 For the manual installation, follows the steps below.
 
-1. Open a terminal and `cd` to the Graphgen folder. For example:
+1. Open a terminal and clone the repository.
+  
     ```sh
-    cd ~/Document/graphgen-master/
+    git clone https://github.com/Nico-Salamone/graphgen.git
     ```
+
+1. Change directory (`cd`) to the Graphgen directory.
+  
+    ```sh
+    cd ./graphgen/
+    ```
+
 1. Run the following commands in your terminal.
     ```sh
     # Install Python dependencies.
