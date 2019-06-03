@@ -21,7 +21,7 @@ For the automatic installation, follows the steps below.
     git clone https://github.com/Nico-Salamone/graphgen.git
     ```
 
-1. Change directory (`cd`) to the Graphgen directory.
+1. Change directory to the Graphgen directory.
   
     ```sh
     cd ./graphgen/
@@ -43,7 +43,7 @@ For the manual installation, follows the steps below.
     git clone https://github.com/Nico-Salamone/graphgen.git
     ```
 
-1. Change directory (`cd`) to the Graphgen directory.
+1. Change directory to the Graphgen directory.
   
     ```sh
     cd ./graphgen/
