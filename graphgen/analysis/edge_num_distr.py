@@ -32,7 +32,7 @@ def compute_std(num_vertices):
 	:return: The standard deviation of numbers of edges of graphs with 'num_vertices' vertices.
 	"""
 
-	# This function was computed using a linear	regression.
+	# This function was computed using a linear regression.
 	return (0.3375899521271764 * num_vertices) + 0.1575828904704868
 
 def compute_edge_num_counts(num_vertices):
